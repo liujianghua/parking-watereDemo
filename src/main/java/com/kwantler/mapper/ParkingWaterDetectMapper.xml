@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kwantler.dao.ParkingWaterDetectMapper">
+  <resultMap id="BaseResultMap" type="com.kwantler.model.ParkingWaterDetect">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BYG_ID" jdbcType="VARCHAR" property="bygId" />
+    <result column="DEVICE_ID" jdbcType="VARCHAR" property="deviceId" />
+    <result column="MONITOR_TIME" jdbcType="TIMESTAMP" property="monitorTime" />
+    <result column="CURRENT_WATER_LEVEL" jdbcType="INTEGER" property="currentWaterLevel" />
+    <result column="OUT_WATER_LEVEL" jdbcType="INTEGER" property="outWaterLevel" />
+    <result column="ALERT_OUT_WATER" jdbcType="INTEGER" property="alertOutWater" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="SEND_TO" jdbcType="INTEGER" property="sendTo" />
+    <result column="INSERT_TIME" jdbcType="TIMESTAMP" property="insertTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, BYG_ID, DEVICE_ID, MONITOR_TIME, CURRENT_WATER_LEVEL, OUT_WATER_LEVEL, ALERT_OUT_WATER, 
+    STATUS, SEND_TO, INSERT_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_parking_water_detect
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_parking_water_detect
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kwantler.model.ParkingWaterDetect" useGeneratedKeys="true" keyProperty="id">
+    insert into t_parking_water_detect (ID, BYG_ID, DEVICE_ID, 
+      MONITOR_TIME, CURRENT_WATER_LEVEL, OUT_WATER_LEVEL, 
+      ALERT_OUT_WATER, STATUS, SEND_TO, 
+      INSERT_TIME)
+    values (#{id,jdbcType=INTEGER}, #{bygId,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, 
+      #{monitorTime,jdbcType=TIMESTAMP}, #{currentWaterLevel,jdbcType=INTEGER}, #{outWaterLevel,jdbcType=INTEGER}, 
+      #{alertOutWater,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{sendTo,jdbcType=INTEGER}, 
+      #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kwantler.model.ParkingWaterDetect" useGeneratedKeys="true" keyProperty="id">
+    insert into t_parking_water_detect
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bygId != null">
+        BYG_ID,
+      </if>
+      <if test="deviceId != null">
+        DEVICE_ID,
+      </if>
+      <if test="monitorTime != null">
+        MONITOR_TIME,
+      </if>
+      <if test="currentWaterLevel != null">
+        CURRENT_WATER_LEVEL,
+      </if>
+      <if test="outWaterLevel != null">
+        OUT_WATER_LEVEL,
+      </if>
+      <if test="alertOutWater != null">
+        ALERT_OUT_WATER,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="sendTo != null">
+        SEND_TO,
+      </if>
+      <if test="insertTime != null">
+        INSERT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bygId != null">
+        #{bygId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorTime != null">
+        #{monitorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentWaterLevel != null">
+        #{currentWaterLevel,jdbcType=INTEGER},
+      </if>
+      <if test="outWaterLevel != null">
+        #{outWaterLevel,jdbcType=INTEGER},
+      </if>
+      <if test="alertOutWater != null">
+        #{alertOutWater,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendTo != null">
+        #{sendTo,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null">
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kwantler.model.ParkingWaterDetect">
+    update t_parking_water_detect
+    <set>
+      <if test="bygId != null">
+        BYG_ID = #{bygId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorTime != null">
+        MONITOR_TIME = #{monitorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentWaterLevel != null">
+        CURRENT_WATER_LEVEL = #{currentWaterLevel,jdbcType=INTEGER},
+      </if>
+      <if test="outWaterLevel != null">
+        OUT_WATER_LEVEL = #{outWaterLevel,jdbcType=INTEGER},
+      </if>
+      <if test="alertOutWater != null">
+        ALERT_OUT_WATER = #{alertOutWater,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendTo != null">
+        SEND_TO = #{sendTo,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null">
+        INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kwantler.model.ParkingWaterDetect">
+    update t_parking_water_detect
+    set BYG_ID = #{bygId,jdbcType=VARCHAR},
+      DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+      MONITOR_TIME = #{monitorTime,jdbcType=TIMESTAMP},
+      CURRENT_WATER_LEVEL = #{currentWaterLevel,jdbcType=INTEGER},
+      OUT_WATER_LEVEL = #{outWaterLevel,jdbcType=INTEGER},
+      ALERT_OUT_WATER = #{alertOutWater,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=INTEGER},
+      SEND_TO = #{sendTo,jdbcType=INTEGER},
+      INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+    
+    <!-- ******************************************************************** -->
+  
+    <select id="selectAll" parameterType="java.util.Map" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from t_parking_water_detect
+	    where 1=1
+	    <if test="startTime != null and startTime != ''">
+	    	and MONITOR_TIME >= #{startTime}
+	    </if>
+	    <if test="endTime != null and endTime != ''">
+	    	<![CDATA[ and MONITOR_TIME <= #{endTime} ]]>
+	    </if>
+	    <if test="status != null and status != ''">
+	    	and STATUS = #{status}
+	    </if>
+	    <if test="sendTo != null and sendTo != ''">
+	    	and SEND_TO = #{sendTo}
+	    </if>
+   </select>
+   
+   <update id="updateStatusByPk" parameterType="com.kwantler.model.ParkingWaterDetect">
+	    update t_parking_water_detect
+	    set STATUS = #{status,jdbcType=INTEGER},
+	    SEND_TO = #{sendTo,jdbcType=INTEGER}
+	    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectBaseWaterLevel" parameterType="java.util.Map" resultMap="BaseResultMap">
+	
+	    SELECT a.* ,COUNT(1) AS NUM
+	    	FROM t_parking_water_detect a
+	    	WHERE a.DEVICE_ID = #{deviceId} 
+	    	   	<if test="startTime != null and startTime != ''">
+	    			and MONITOR_TIME >= #{startTime}
+	   	 		</if>
+ 			GROUP BY a.CURRENT_WATER_LEVEL
+			ORDER BY NUM DESC LIMIT 1 
+   </select>
+    <select id="selectNewestMonitorTime" resultMap="BaseResultMap">
+   		SELECT
+			a.*
+		FROM
+			t_parking_water_detect a
+		WHERE
+			a.MONITOR_TIME = (
+				SELECT
+					MAX(b.MONITOR_TIME)
+				FROM
+					t_parking_water_detect b
+				WHERE
+					a.DEVICE_ID = b.DEVICE_ID
+			)
+  	</select>  	
+</mapper>

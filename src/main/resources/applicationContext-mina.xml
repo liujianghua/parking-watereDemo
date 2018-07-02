@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/context   
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	
+	 <!--多端口监听的配置-->  
+  <bean id="configLearn" class="com.kwantler.socket.WaterDetectServer" init-method="bind"/>  
+ <!--  
+      <bean id="configLearn" class="com.kwantler.socket.WeatherServer" init-method="bind"/>  
+  -->  
+    <!--主要实例-->  
+    <bean id="ioAcceptor" class="org.apache.mina.transport.socket.nio.NioSocketAcceptor">  
+        <property name="handler" ref="serviceHandler" />  
+        <property name="reuseAddress" value="true" />  
+        <property name="filterChainBuilder" ref="filterChainBuilder" />  
+    </bean>  
+  
+    <!--消息处理函数-->  
+     <bean id="serviceHandler" class="com.kwantler.socket.WaterDetectServiceHandler" />  
+   <!--  
+    <bean id="serviceHandler" class="com.kwantler.socket.WeatherServiceHandler" />  
+ --> 
+      
+     <!--过滤器的配置-->  
+    <bean id="executorFilter" class="org.apache.mina.filter.executor.ExecutorFilter" />  
+    <bean id="mdcInjectionFilter" class="org.apache.mina.filter.logging.MdcInjectionFilter">  
+        <constructor-arg value="remoteAddress" />  
+    </bean>  
+    <bean id="loggingFilter" class="org.apache.mina.filter.logging.LoggingFilter" />  
+    <bean id="filterChainBuilder" class="org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder">  
+        <property name="filters">  
+            <map>  
+                <entry key="executor" value-ref="executorFilter" />  
+                <entry key="mdcInjectionFilter" value-ref="mdcInjectionFilter" />  
+                <entry key="loggingFilter" value-ref="loggingFilter" />  
+            </map>  
+        </property>  
+    </bean>  
+  
+</beans>

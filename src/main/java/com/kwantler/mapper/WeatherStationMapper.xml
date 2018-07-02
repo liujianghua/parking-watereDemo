@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kwantler.dao.WeatherStationMapper">
+  <resultMap id="BaseResultMap" type="com.kwantler.model.WeatherStation">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BYG_ID" jdbcType="VARCHAR" property="bygId" />
+    <result column="DEVICE_ID" jdbcType="VARCHAR" property="deviceId" />
+    <result column="MONITOR_TIME" jdbcType="TIMESTAMP" property="monitorTime" />
+    <result column="CURRENT_TEMP" jdbcType="REAL" property="currentTemp" />
+    <result column="TOP_TEMP" jdbcType="REAL" property="topTemp" />
+    <result column="TOP_TEMP_TIME" jdbcType="TIMESTAMP" property="topTempTime" />
+    <result column="LOWEST_TEMP" jdbcType="REAL" property="lowestTemp" />
+    <result column="LOWEST_TEMP_TIME" jdbcType="TIMESTAMP" property="lowestTempTime" />
+    <result column="CURRENT_HUMIDITY" jdbcType="REAL" property="currentHumidity" />
+    <result column="TOP_HUMIDITY" jdbcType="REAL" property="topHumidity" />
+    <result column="TOP_HUMIDITY_TIME" jdbcType="TIMESTAMP" property="topHumidityTime" />
+    <result column="LOWEST_HUMIDITY" jdbcType="REAL" property="lowestHumidity" />
+    <result column="LOWEST_HUMIDITY_TIME" jdbcType="TIMESTAMP" property="lowestHumidityTime" />
+    <result column="CURRENT_AIR_PRESSURE" jdbcType="REAL" property="currentAirPressure" />
+    <result column="INSTANTANEOUS_WIND_SPEED" jdbcType="REAL" property="instantaneousWindSpeed" />
+    <result column="INSTANTANEOUS_WIND_DIRECTION" jdbcType="INTEGER" property="instantaneousWindDirection" />
+    <result column="CURRENT_RAINFALL_MIN" jdbcType="REAL" property="currentRainfallMin" />
+    <result column="CURRENT_RAINFALL_HOUR" jdbcType="REAL" property="currentRainfallHour" />
+    <result column="BATTERY_LEVEL" jdbcType="REAL" property="batteryLevel" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="SEND_TO" jdbcType="INTEGER" property="sendTo" />
+    <result column="INSERT_TIME" jdbcType="TIMESTAMP" property="insertTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, BYG_ID, DEVICE_ID, MONITOR_TIME, CURRENT_TEMP, TOP_TEMP, TOP_TEMP_TIME, LOWEST_TEMP, 
+    LOWEST_TEMP_TIME, CURRENT_HUMIDITY, TOP_HUMIDITY, TOP_HUMIDITY_TIME, LOWEST_HUMIDITY, 
+    LOWEST_HUMIDITY_TIME, CURRENT_AIR_PRESSURE, INSTANTANEOUS_WIND_SPEED, INSTANTANEOUS_WIND_DIRECTION, 
+    CURRENT_RAINFALL_MIN, CURRENT_RAINFALL_HOUR, BATTERY_LEVEL, STATUS, SEND_TO, INSERT_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_weather_station
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_weather_station
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kwantler.model.WeatherStation" useGeneratedKeys="true" keyProperty="id">
+    insert into t_weather_station (ID, BYG_ID, DEVICE_ID, 
+      MONITOR_TIME, CURRENT_TEMP, TOP_TEMP, 
+      TOP_TEMP_TIME, LOWEST_TEMP, LOWEST_TEMP_TIME, 
+      CURRENT_HUMIDITY, TOP_HUMIDITY, TOP_HUMIDITY_TIME, 
+      LOWEST_HUMIDITY, LOWEST_HUMIDITY_TIME, CURRENT_AIR_PRESSURE, 
+      INSTANTANEOUS_WIND_SPEED, INSTANTANEOUS_WIND_DIRECTION, 
+      CURRENT_RAINFALL_MIN, CURRENT_RAINFALL_HOUR, BATTERY_LEVEL, 
+      STATUS, SEND_TO, INSERT_TIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{bygId,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, 
+      #{monitorTime,jdbcType=TIMESTAMP}, #{currentTemp,jdbcType=REAL}, #{topTemp,jdbcType=REAL}, 
+      #{topTempTime,jdbcType=TIMESTAMP}, #{lowestTemp,jdbcType=REAL}, #{lowestTempTime,jdbcType=TIMESTAMP}, 
+      #{currentHumidity,jdbcType=REAL}, #{topHumidity,jdbcType=REAL}, #{topHumidityTime,jdbcType=TIMESTAMP}, 
+      #{lowestHumidity,jdbcType=REAL}, #{lowestHumidityTime,jdbcType=TIMESTAMP}, #{currentAirPressure,jdbcType=REAL}, 
+      #{instantaneousWindSpeed,jdbcType=REAL}, #{instantaneousWindDirection,jdbcType=INTEGER}, 
+      #{currentRainfallMin,jdbcType=REAL}, #{currentRainfallHour,jdbcType=REAL}, #{batteryLevel,jdbcType=REAL}, 
+      #{status,jdbcType=INTEGER}, #{sendTo,jdbcType=INTEGER}, #{insertTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kwantler.model.WeatherStation" useGeneratedKeys="true" keyProperty="id">
+    insert into t_weather_station
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bygId != null">
+        BYG_ID,
+      </if>
+      <if test="deviceId != null">
+        DEVICE_ID,
+      </if>
+      <if test="monitorTime != null">
+        MONITOR_TIME,
+      </if>
+      <if test="currentTemp != null">
+        CURRENT_TEMP,
+      </if>
+      <if test="topTemp != null">
+        TOP_TEMP,
+      </if>
+      <if test="topTempTime != null">
+        TOP_TEMP_TIME,
+      </if>
+      <if test="lowestTemp != null">
+        LOWEST_TEMP,
+      </if>
+      <if test="lowestTempTime != null">
+        LOWEST_TEMP_TIME,
+      </if>
+      <if test="currentHumidity != null">
+        CURRENT_HUMIDITY,
+      </if>
+      <if test="topHumidity != null">
+        TOP_HUMIDITY,
+      </if>
+      <if test="topHumidityTime != null">
+        TOP_HUMIDITY_TIME,
+      </if>
+      <if test="lowestHumidity != null">
+        LOWEST_HUMIDITY,
+      </if>
+      <if test="lowestHumidityTime != null">
+        LOWEST_HUMIDITY_TIME,
+      </if>
+      <if test="currentAirPressure != null">
+        CURRENT_AIR_PRESSURE,
+      </if>
+      <if test="instantaneousWindSpeed != null">
+        INSTANTANEOUS_WIND_SPEED,
+      </if>
+      <if test="instantaneousWindDirection != null">
+        INSTANTANEOUS_WIND_DIRECTION,
+      </if>
+      <if test="currentRainfallMin != null">
+        CURRENT_RAINFALL_MIN,
+      </if>
+      <if test="currentRainfallHour != null">
+        CURRENT_RAINFALL_HOUR,
+      </if>
+      <if test="batteryLevel != null">
+        BATTERY_LEVEL,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="sendTo != null">
+        SEND_TO,
+      </if>
+      <if test="insertTime != null">
+        INSERT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bygId != null">
+        #{bygId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorTime != null">
+        #{monitorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentTemp != null">
+        #{currentTemp,jdbcType=REAL},
+      </if>
+      <if test="topTemp != null">
+        #{topTemp,jdbcType=REAL},
+      </if>
+      <if test="topTempTime != null">
+        #{topTempTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lowestTemp != null">
+        #{lowestTemp,jdbcType=REAL},
+      </if>
+      <if test="lowestTempTime != null">
+        #{lowestTempTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentHumidity != null">
+        #{currentHumidity,jdbcType=REAL},
+      </if>
+      <if test="topHumidity != null">
+        #{topHumidity,jdbcType=REAL},
+      </if>
+      <if test="topHumidityTime != null">
+        #{topHumidityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lowestHumidity != null">
+        #{lowestHumidity,jdbcType=REAL},
+      </if>
+      <if test="lowestHumidityTime != null">
+        #{lowestHumidityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentAirPressure != null">
+        #{currentAirPressure,jdbcType=REAL},
+      </if>
+      <if test="instantaneousWindSpeed != null">
+        #{instantaneousWindSpeed,jdbcType=REAL},
+      </if>
+      <if test="instantaneousWindDirection != null">
+        #{instantaneousWindDirection,jdbcType=INTEGER},
+      </if>
+      <if test="currentRainfallMin != null">
+        #{currentRainfallMin,jdbcType=REAL},
+      </if>
+      <if test="currentRainfallHour != null">
+        #{currentRainfallHour,jdbcType=REAL},
+      </if>
+      <if test="batteryLevel != null">
+        #{batteryLevel,jdbcType=REAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendTo != null">
+        #{sendTo,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null">
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kwantler.model.WeatherStation">
+    update t_weather_station
+    <set>
+      <if test="bygId != null">
+        BYG_ID = #{bygId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorTime != null">
+        MONITOR_TIME = #{monitorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentTemp != null">
+        CURRENT_TEMP = #{currentTemp,jdbcType=REAL},
+      </if>
+      <if test="topTemp != null">
+        TOP_TEMP = #{topTemp,jdbcType=REAL},
+      </if>
+      <if test="topTempTime != null">
+        TOP_TEMP_TIME = #{topTempTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lowestTemp != null">
+        LOWEST_TEMP = #{lowestTemp,jdbcType=REAL},
+      </if>
+      <if test="lowestTempTime != null">
+        LOWEST_TEMP_TIME = #{lowestTempTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentHumidity != null">
+        CURRENT_HUMIDITY = #{currentHumidity,jdbcType=REAL},
+      </if>
+      <if test="topHumidity != null">
+        TOP_HUMIDITY = #{topHumidity,jdbcType=REAL},
+      </if>
+      <if test="topHumidityTime != null">
+        TOP_HUMIDITY_TIME = #{topHumidityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lowestHumidity != null">
+        LOWEST_HUMIDITY = #{lowestHumidity,jdbcType=REAL},
+      </if>
+      <if test="lowestHumidityTime != null">
+        LOWEST_HUMIDITY_TIME = #{lowestHumidityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currentAirPressure != null">
+        CURRENT_AIR_PRESSURE = #{currentAirPressure,jdbcType=REAL},
+      </if>
+      <if test="instantaneousWindSpeed != null">
+        INSTANTANEOUS_WIND_SPEED = #{instantaneousWindSpeed,jdbcType=REAL},
+      </if>
+      <if test="instantaneousWindDirection != null">
+        INSTANTANEOUS_WIND_DIRECTION = #{instantaneousWindDirection,jdbcType=INTEGER},
+      </if>
+      <if test="currentRainfallMin != null">
+        CURRENT_RAINFALL_MIN = #{currentRainfallMin,jdbcType=REAL},
+      </if>
+      <if test="currentRainfallHour != null">
+        CURRENT_RAINFALL_HOUR = #{currentRainfallHour,jdbcType=REAL},
+      </if>
+      <if test="batteryLevel != null">
+        BATTERY_LEVEL = #{batteryLevel,jdbcType=REAL},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendTo != null">
+        SEND_TO = #{sendTo,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null">
+        INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kwantler.model.WeatherStation">
+    update t_weather_station
+    set BYG_ID = #{bygId,jdbcType=VARCHAR},
+      DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+      MONITOR_TIME = #{monitorTime,jdbcType=TIMESTAMP},
+      CURRENT_TEMP = #{currentTemp,jdbcType=REAL},
+      TOP_TEMP = #{topTemp,jdbcType=REAL},
+      TOP_TEMP_TIME = #{topTempTime,jdbcType=TIMESTAMP},
+      LOWEST_TEMP = #{lowestTemp,jdbcType=REAL},
+      LOWEST_TEMP_TIME = #{lowestTempTime,jdbcType=TIMESTAMP},
+      CURRENT_HUMIDITY = #{currentHumidity,jdbcType=REAL},
+      TOP_HUMIDITY = #{topHumidity,jdbcType=REAL},
+      TOP_HUMIDITY_TIME = #{topHumidityTime,jdbcType=TIMESTAMP},
+      LOWEST_HUMIDITY = #{lowestHumidity,jdbcType=REAL},
+      LOWEST_HUMIDITY_TIME = #{lowestHumidityTime,jdbcType=TIMESTAMP},
+      CURRENT_AIR_PRESSURE = #{currentAirPressure,jdbcType=REAL},
+      INSTANTANEOUS_WIND_SPEED = #{instantaneousWindSpeed,jdbcType=REAL},
+      INSTANTANEOUS_WIND_DIRECTION = #{instantaneousWindDirection,jdbcType=INTEGER},
+      CURRENT_RAINFALL_MIN = #{currentRainfallMin,jdbcType=REAL},
+      CURRENT_RAINFALL_HOUR = #{currentRainfallHour,jdbcType=REAL},
+      BATTERY_LEVEL = #{batteryLevel,jdbcType=REAL},
+      STATUS = #{status,jdbcType=INTEGER},
+      SEND_TO = #{sendTo,jdbcType=INTEGER},
+      INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <!-- ******************************************************************** -->
+  
+    <select id="selectAll" parameterType="java.util.Map" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from t_weather_station
+	    where 1=1
+	    <if test="startTime != null and startTime != ''">
+	    	and MONITOR_TIME >= #{startTime}
+	    </if>
+	    <if test="endTime != null and endTime != ''">
+	    	<![CDATA[ and MONITOR_TIME <= #{endTime} ]]>
+	    </if>
+	    <if test="status != null and status != ''">
+	    	and STATUS = #{status}
+	    </if>
+	    <if test="sendTo != null and sendTo != ''">
+	    	and SEND_TO = #{sendTo}
+	    </if>
+   </select>
+   
+   <update id="updateStatusByPk" parameterType="com.kwantler.model.WeatherStation">
+	    update t_weather_station
+	    set STATUS = #{status,jdbcType=INTEGER},
+	    	SEND_TO = #{sendTo,jdbcType=INTEGER}
+	    where ID = #{id,jdbcType=INTEGER}
+   </update>
+   
+    <select id="selectNewestByDeviceId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			t_weather_station a
+		WHERE
+		a.DEVICE_ID =#{_parameter}
+		AND a.MONITOR_TIME = (SELECT MAX(b.MONITOR_TIME)
+							 FROM t_weather_station b
+							 WHERE b.DEVICE_ID = a.DEVICE_ID)
+   </select>
+</mapper>

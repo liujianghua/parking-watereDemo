@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx.xsd
+			http://www.springframework.org/schema/aop 
+			http://www.springframework.org/schema/aop/spring-aop.xsd
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+<!-- 
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	 -->
+	<!--开启MVC的注解支持 -->
+	<mvc:annotation-driven >
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<!-- 全注解配置 -->
+	<!--开启全局注解扫描 -->
+	<context:component-scan base-package="com.kwantler"/>
+	
+	<!-- 引入其他配置文件 -->
+	<import resource="classpath:applicationContext-*.xml" />
+	
+	<!--开启对静态资源的支持 -->
+	<!-- 如果开启，静态文件过滤需要配置在web.xml里 -->
+	<mvc:default-servlet-handler />
+	
+	<!-- 启动对@AspectJ注解的支持 -->  
+	<aop:aspectj-autoproxy/>  
+    <!-- proxy-target-class等于true是强制使用cglib代理，proxy-target-class默认是false，如果你的类实现了接口 就走JDK代理，如果没有，走cglib代理  -->
+    <!-- 注：对于单利模式建议使用cglib代理，虽然JDK动态代理比cglib代理速度快，但性能不如cglib -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+	<!-- 下面配置如果还有自定义拦截器，根据拦截规则可能还需要实现静态资源的过滤 -->
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/css/" mapping="/css/**"/>
+	<mvc:resources location="/images/" mapping="/images/**"/>
+	<mvc:resources location="/views/" mapping="/views/**"/>
+	<mvc:resources location="/" mapping="*.html"/>
+
+	<!-- 视图分解器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 把常规的结果视图，分解为3部分 ： 前缀 + 指定值 + 后缀 -->
+		<property name="prefix" value="/WEB-INF/view/"></property>
+		<property name="suffix" value=".html"></property>
+	</bean>
+
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/plain;charset=UTF-8</value>
+							<value>application/json;charset=UTF-8</value>
+							<value>text/html;charset=UTF-8</value> <!--避免IE出现下载JSON文件的情况 -->
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+    
+	<!-- 拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 设置拦截器，拦截的（地址）规则 -->
+			<mvc:mapping path="/**" />
+			<!-- 拦截器的全类名 -->
+			<bean class="com.kwantler.interceptor.AuthenticationIntercepter"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+</beans>
+			

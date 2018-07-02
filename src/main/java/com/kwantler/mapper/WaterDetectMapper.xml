@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kwantler.dao.WaterDetectMapper">
+  <resultMap id="BaseResultMap" type="com.kwantler.model.WaterDetect">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="BYG_ID" jdbcType="VARCHAR" property="bygId" />
+    <result column="DEVICE_ID" jdbcType="VARCHAR" property="deviceId" />
+    <result column="MONITOR_TIME" jdbcType="TIMESTAMP" property="monitorTime" />
+    <result column="FREE_CHLORINE" jdbcType="REAL" property="freeChlorine" />
+    <result column="PH" jdbcType="REAL" property="ph" />
+    <result column="TEMPERATURE" jdbcType="REAL" property="temperature" />
+    <result column="TURBIDITY" jdbcType="REAL" property="turbidity" />
+    <result column="WATER_QUALITY" jdbcType="INTEGER" property="waterQuality" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="SEND_TO" jdbcType="INTEGER" property="sendTo" />
+    <result column="INSERT_TIME" jdbcType="TIMESTAMP" property="insertTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, BYG_ID, DEVICE_ID, MONITOR_TIME, FREE_CHLORINE, PH, TEMPERATURE, TURBIDITY, WATER_QUALITY, 
+    STATUS, SEND_TO, INSERT_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_water_detect
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_water_detect
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kwantler.model.WaterDetect" useGeneratedKeys="true" keyProperty="id">
+    insert into t_water_detect (ID, BYG_ID, DEVICE_ID, 
+      MONITOR_TIME, FREE_CHLORINE, PH, 
+      TEMPERATURE, TURBIDITY, WATER_QUALITY, 
+      STATUS, SEND_TO, INSERT_TIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{bygId,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, 
+      #{monitorTime,jdbcType=TIMESTAMP}, #{freeChlorine,jdbcType=REAL}, #{ph,jdbcType=REAL}, 
+      #{temperature,jdbcType=REAL}, #{turbidity,jdbcType=REAL}, #{waterQuality,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{sendTo,jdbcType=INTEGER}, #{insertTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kwantler.model.WaterDetect" useGeneratedKeys="true" keyProperty="id">
+    insert into t_water_detect
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bygId != null">
+        BYG_ID,
+      </if>
+      <if test="deviceId != null">
+        DEVICE_ID,
+      </if>
+      <if test="monitorTime != null">
+        MONITOR_TIME,
+      </if>
+      <if test="freeChlorine != null">
+        FREE_CHLORINE,
+      </if>
+      <if test="ph != null">
+        PH,
+      </if>
+      <if test="temperature != null">
+        TEMPERATURE,
+      </if>
+      <if test="turbidity != null">
+        TURBIDITY,
+      </if>
+      <if test="waterQuality != null">
+        WATER_QUALITY,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="sendTo != null">
+        SEND_TO,
+      </if>
+      <if test="insertTime != null">
+        INSERT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bygId != null">
+        #{bygId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorTime != null">
+        #{monitorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="freeChlorine != null">
+        #{freeChlorine,jdbcType=REAL},
+      </if>
+      <if test="ph != null">
+        #{ph,jdbcType=REAL},
+      </if>
+      <if test="temperature != null">
+        #{temperature,jdbcType=REAL},
+      </if>
+      <if test="turbidity != null">
+        #{turbidity,jdbcType=REAL},
+      </if>
+      <if test="waterQuality != null">
+        #{waterQuality,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendTo != null">
+        #{sendTo,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null">
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kwantler.model.WaterDetect">
+    update t_water_detect
+    <set>
+      <if test="bygId != null">
+        BYG_ID = #{bygId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorTime != null">
+        MONITOR_TIME = #{monitorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="freeChlorine != null">
+        FREE_CHLORINE = #{freeChlorine,jdbcType=REAL},
+      </if>
+      <if test="ph != null">
+        PH = #{ph,jdbcType=REAL},
+      </if>
+      <if test="temperature != null">
+        TEMPERATURE = #{temperature,jdbcType=REAL},
+      </if>
+      <if test="turbidity != null">
+        TURBIDITY = #{turbidity,jdbcType=REAL},
+      </if>
+      <if test="waterQuality != null">
+        WATER_QUALITY = #{waterQuality,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendTo != null">
+        SEND_TO = #{sendTo,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null">
+        INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kwantler.model.WaterDetect">
+    update t_water_detect
+    set BYG_ID = #{bygId,jdbcType=VARCHAR},
+      DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+      MONITOR_TIME = #{monitorTime,jdbcType=TIMESTAMP},
+      FREE_CHLORINE = #{freeChlorine,jdbcType=REAL},
+      PH = #{ph,jdbcType=REAL},
+      TEMPERATURE = #{temperature,jdbcType=REAL},
+      TURBIDITY = #{turbidity,jdbcType=REAL},
+      WATER_QUALITY = #{waterQuality,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=INTEGER},
+      SEND_TO = #{sendTo,jdbcType=INTEGER},
+      INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- ******************************************************************** -->
+  
+    <select id="selectAll" parameterType="java.util.Map" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from t_water_detect
+	    where 1=1
+	    <if test="startTime != null and startTime != ''">
+	    	and MONITOR_TIME >= #{startTime}
+	    </if>
+	    <if test="endTime != null and endTime != ''">
+	    	<![CDATA[ and MONITOR_TIME <= #{endTime} ]]>
+	    </if>
+	    <if test="status != null and status != ''">
+	    	and STATUS = #{status}
+	    </if>
+	    <if test="sendTo != null and sendTo != ''">
+	    	and SEND_TO = #{sendTo}
+	    </if>
+   </select>
+   
+   <update id="updateStatusByPk" parameterType="com.kwantler.model.WaterDetect">
+	    update t_water_detect
+	    set STATUS = #{status,jdbcType=INTEGER},
+	    	SEND_TO = #{sendTo,jdbcType=INTEGER}
+	    where ID = #{id,jdbcType=INTEGER}
+  </update>
+   
+</mapper>
